@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whatsapp/widgets/search_view.dart';
 
 class MainView extends StatelessWidget {
   const MainView({super.key});
@@ -22,26 +23,13 @@ class MainView extends StatelessWidget {
               onPressed: () {},
             ),
           ]),
-      body: const Column(
+      body: Column(
         children: [
-          Padding(
-            padding: EdgeInsets.all(16),
-            child: SizedBox(
-              height: 45,
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: "Search",
-                  fillColor: Color(0xffD3D3D3),
-                  filled: true,
-                  prefixIcon: Icon(
-                    Icons.search,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                  ),
-                ),
-              ),
-            ),
+          const SearchView(),
+          Expanded(
+            child: ListView.builder(itemBuilder: (context, index) {
+              return Container();
+            }),
           )
         ],
       ),
