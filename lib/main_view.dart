@@ -26,9 +26,22 @@ class MainView extends StatelessWidget {
       body: Column(
         children: [
           const SearchView(),
+          const Divider(),
           Expanded(
             child: ListView.builder(itemBuilder: (context, index) {
-              return Container();
+              return SizedBox(
+                height: 50,
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 30.0,
+                      backgroundImage: NetworkImage(
+                          'https://media.istockphoto.com/id/1300512215/photo/headshot-portrait-of-smiling-ethnic-businessman-in-office.jpg?s=612x612&w=0&k=20&c=QjebAlXBgee05B3rcLDAtOaMtmdLjtZ5Yg9IJoiy-VY='),
+                      backgroundColor: Colors.transparent,
+                    ),
+                  ],
+                ),
+              );
             }),
           )
         ],
