@@ -22,11 +22,26 @@ class MainView extends StatelessWidget {
               onPressed: () {},
             ),
           ]),
-      body: Column(
+      body: const Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(16),
-            child: TextField(),
+            padding: EdgeInsets.all(16),
+            child: SizedBox(
+              height: 45,
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: "Search",
+                  fillColor: Color(0xffD3D3D3),
+                  filled: true,
+                  prefixIcon: Icon(
+                    Icons.search,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                ),
+              ),
+            ),
           )
         ],
       ),
