@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:whatsapp/model/contact.dart';
 
 class ContactTile extends StatelessWidget {
-  const ContactTile({super.key});
+  final Contact contact;
+  const ContactTile({super.key, required this.contact});
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +15,9 @@ class ContactTile extends StatelessWidget {
           children: [
             Row(
               children: [
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 25,
-                  backgroundImage: NetworkImage(
-                      'https://media.istockphoto.com/id/1300512215/photo/headshot-portrait-of-smiling-ethnic-businessman-in-office.jpg?s=612x612&w=0&k=20&c=QjebAlXBgee05B3rcLDAtOaMtmdLjtZ5Yg9IJoiy-VY='),
+                  backgroundImage: NetworkImage(contact.image),
                   backgroundColor: Colors.transparent,
                 ),
                 Expanded(
@@ -28,20 +29,18 @@ class ContactTile extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            const Text(
-                              "Abed alrahman al hajj",
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                            Text(
+                              contact.name,
+                              style: const TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Expanded(child: Container()),
-                            const Text(
-                              "10:00 PM",
-                              style: TextStyle(color: Colors.blue),
+                            Text(
+                              contact.date,
+                              style: const TextStyle(color: Colors.blue),
                             ),
                           ],
                         ),
-                        const Text(
-                          "chat descriptions",
-                        ),
+                        Text(contact.desc),
                       ],
                     ),
                   ),
