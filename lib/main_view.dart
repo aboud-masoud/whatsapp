@@ -144,7 +144,10 @@ class _MainViewState extends State<MainView> {
                           ),
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-                              return const ChatDetailsScreen();
+                              return ChatDetailsScreen(
+                                image: contactList[index].image,
+                                name: contactList[index].name,
+                              );
                             }));
                           },
                         );
