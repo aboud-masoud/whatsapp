@@ -92,8 +92,10 @@ class _MainViewState extends State<MainView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
+    return DefaultTabController(
+      length: 5,
+      child: Scaffold(
+        appBar: AppBar(
           leading: TextButton(
             child: const Text("Edit"),
             onPressed: () {},
@@ -108,29 +110,108 @@ class _MainViewState extends State<MainView> {
               icon: const Icon(Icons.add_circle_outline_sharp),
               onPressed: () {},
             ),
-          ]),
-      body: Column(
-        children: [
-          _scrollPosition == 0 ? const SearchView() : Container(),
-          const Divider(),
-          Expanded(
-            child: ListView.builder(
-                itemCount: contactList.length,
-                controller: scrollController,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    child: ContactTile(
-                      contact: contactList[index],
-                    ),
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-                        return const ChatDetailsScreen();
-                      }));
-                    },
-                  );
-                }),
-          )
-        ],
+          ],
+        ),
+        body: TabBarView(
+          children: [
+            const Center(
+                child: Text(
+              'Welcome to Update Tab',
+              style: TextStyle(fontSize: 32),
+            )),
+            const Center(
+                child: Text(
+              'Welcome to calls Tab',
+              style: TextStyle(fontSize: 32),
+            )),
+            const Center(
+                child: Text(
+              'Welcome to Communities Tab',
+              style: TextStyle(fontSize: 32),
+            )),
+            Column(
+              children: [
+                _scrollPosition == 0 ? const SearchView() : Container(),
+                const Divider(),
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: contactList.length,
+                      controller: scrollController,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          child: ContactTile(
+                            contact: contactList[index],
+                          ),
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+                              return const ChatDetailsScreen();
+                            }));
+                          },
+                        );
+                      }),
+                )
+              ],
+            ),
+            const Center(
+                child: Text(
+              'Welcome to Settings Tab',
+              style: TextStyle(fontSize: 32),
+            )),
+          ],
+        ),
+        bottomNavigationBar: SafeArea(
+          child: Container(
+            color: Colors.red,
+            child: const TabBar(
+              indicatorWeight: 5.0,
+              labelColor: Colors.white,
+              labelPadding: EdgeInsets.only(top: 10.0),
+              unselectedLabelColor: Colors.grey,
+              tabs: [
+                Tab(
+                  text: 'Update',
+                  icon: Icon(
+                    Icons.update,
+                    color: Colors.white,
+                  ),
+                  iconMargin: EdgeInsets.only(bottom: 10.0),
+                ),
+                Tab(
+                  text: 'Calls',
+                  icon: Icon(
+                    Icons.call,
+                    color: Colors.white,
+                  ),
+                  iconMargin: EdgeInsets.only(bottom: 10.0),
+                ),
+                Tab(
+                  text: 'Communites',
+                  icon: Icon(
+                    Icons.group,
+                    color: Colors.white,
+                  ),
+                  iconMargin: EdgeInsets.only(bottom: 10.0),
+                ),
+                Tab(
+                  text: 'Chats',
+                  icon: Icon(
+                    Icons.chat,
+                    color: Colors.white,
+                  ),
+                  iconMargin: EdgeInsets.only(bottom: 10.0),
+                ),
+                Tab(
+                  text: 'Settings',
+                  icon: Icon(
+                    Icons.settings,
+                    color: Colors.white,
+                  ),
+                  iconMargin: EdgeInsets.only(bottom: 10.0),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
