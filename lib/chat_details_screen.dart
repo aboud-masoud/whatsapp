@@ -72,7 +72,7 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
                 itemCount: chatList.length,
                 itemBuilder: (ctx, index) {
                   return Padding(
-                    padding: const EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.only(top: 8),
                     child: Padding(
                       padding: const EdgeInsets.only(left: 8, top: 8, right: 8),
                       child: Row(
@@ -98,7 +98,12 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
           )
         ],
       ),
-      bottomNavigationBar: const SendMessageView(),
+      bottomNavigationBar: SendMessageView(
+        onTapSend: (value) {
+          chatList.add(Chat(message: value, myMessage: true));
+          setState(() {});
+        },
+      ),
     );
   }
 }

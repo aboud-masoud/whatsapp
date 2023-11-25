@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 
-class SendMessageView extends StatelessWidget {
-  const SendMessageView({super.key});
+class SendMessageView extends StatefulWidget {
+  final Function(String) onTapSend;
+  const SendMessageView({super.key, required this.onTapSend});
+
+  @override
+  State<SendMessageView> createState() => _SendMessageViewState();
+}
+
+class _SendMessageViewState extends State<SendMessageView> {
+  TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +30,7 @@ class SendMessageView extends StatelessWidget {
               child: SizedBox(
                 height: 40,
                 child: TextField(
+                  controller: controller,
                   decoration: InputDecoration(
                     suffixIcon: IconButton(
                       icon: const Icon(
@@ -29,7 +38,8 @@ class SendMessageView extends StatelessWidget {
                         color: Colors.blue,
                       ),
                       onPressed: () {
-                        //TODO
+                        widget.onTapSend(controller.text);
+                        controller.text = "";
                       },
                     ),
                     border: const OutlineInputBorder(

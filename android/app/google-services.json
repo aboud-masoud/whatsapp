@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "877896694924",
+    "project_id": "whatsapp-4ed07",
+    "storage_bucket": "whatsapp-4ed07.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:877896694924:android:c7c3a32dba2805da27cfa9",
+        "android_client_info": {
+          "package_name": "com.abeed.whatsapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtNFPZuz0gQ7clMVxCVlBq3Yb7C3T3I40"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
