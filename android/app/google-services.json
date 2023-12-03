@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "877896694924",
-    "project_id": "whatsapp-4ed07",
-    "storage_bucket": "whatsapp-4ed07.appspot.com"
+    "project_number": "962182929835",
+    "project_id": "whatsapp-fb12a",
+    "storage_bucket": "whatsapp-fb12a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:877896694924:android:c7c3a32dba2805da27cfa9",
+        "mobilesdk_app_id": "1:962182929835:android:3c7639f941aee82c21c6ee",
         "android_client_info": {
-          "package_name": "com.abeed.whatsapp"
+          "package_name": "com.abeed.whatsapps"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBtNFPZuz0gQ7clMVxCVlBq3Yb7C3T3I40"
+          "current_key": "AIzaSyCXlXTRd91dr_h3wIypombQBUQLQWKxZMY"
         }
       ],
       "services": {

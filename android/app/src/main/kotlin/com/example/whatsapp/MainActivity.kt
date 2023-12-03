@@ -1,4 +1,4 @@
-package com.abeed.whatsapp
+package com.abeed.whatsapps
 
 import io.flutter.embedding.android.FlutterActivity
 
