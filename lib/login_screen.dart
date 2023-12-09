@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:whatsapp/registration_screen.dart';
@@ -12,6 +13,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailField = TextEditingController();
   TextEditingController passwordField = TextEditingController();
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,11 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(
                 width: MediaQuery.of(context).size.width - 32,
                 height: 50,
-                child: ElevatedButton(onPressed: () {}, child: const Text("Login"))),
+                child: ElevatedButton(
+                    onPressed: () {
+                      // auth.signInWithEmailAndPassword(email: , password: );
+                    },
+                    child: const Text("Login"))),
             TextButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
