@@ -9,21 +9,6 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> {
-  ScrollController scrollController = ScrollController();
-  double scrollPosition = 0;
-
-  _scrollListener() {
-    setState(() {
-      scrollPosition = scrollController.position.pixels;
-    });
-  }
-
-  @override
-  void initState() {
-    scrollController.addListener(_scrollListener);
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -63,10 +48,7 @@ class _MainViewState extends State<MainView> {
               'Welcome to Communities Tab',
               style: TextStyle(fontSize: 32),
             )),
-            ChatView(
-              scrollPosition: scrollPosition,
-              scrollController: scrollController,
-            ),
+            ChatView(),
             const Center(
                 child: Text(
               'Welcome to Settings Tab',

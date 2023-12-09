@@ -5,15 +5,28 @@ import 'package:whatsapp/widgets/contact_tile.dart';
 import 'package:whatsapp/widgets/search_view.dart';
 
 class ChatView extends StatefulWidget {
-  final double scrollPosition;
-  final ScrollController scrollController;
-  const ChatView({super.key, required this.scrollPosition, required this.scrollController});
+  const ChatView({super.key});
 
   @override
   State<ChatView> createState() => _ChatViewState();
 }
 
 class _ChatViewState extends State<ChatView> {
+  ScrollController scrollController = ScrollController();
+  double scrollPosition = 0;
+
+  _scrollListener() {
+    setState(() {
+      scrollPosition = scrollController.position.pixels;
+    });
+  }
+
+  @override
+  void initState() {
+    scrollController.addListener(_scrollListener);
+    super.initState();
+  }
+
   List<Contact> contactList = [
     Contact(
         image: "https://buffer.com/library/content/images/2022/03/amina.png",
@@ -81,12 +94,12 @@ class _ChatViewState extends State<ChatView> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        widget.scrollPosition == 0 ? const SearchView() : Container(),
+        scrollPosition == 0 ? const SearchView() : Container(),
         const Divider(),
         Expanded(
           child: ListView.builder(
               itemCount: contactList.length,
-              controller: widget.scrollController,
+              controller: scrollController,
               itemBuilder: (context, index) {
                 return InkWell(
                   child: ContactTile(
