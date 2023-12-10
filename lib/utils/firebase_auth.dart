@@ -2,9 +2,20 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class MyFirebaseAuth {
-  FirebaseAuth auth = FirebaseAuth.instance;
+  static FirebaseAuth auth = FirebaseAuth.instance;
 
-  Future<User?> createAccount({required BuildContext context, required String email, required String password}) async {
+  static int x = 5;
+
+  int returnValue() {
+    return x;
+  }
+
+  incrementX() {
+    x = x + 1;
+  }
+
+  static Future<User?> createAccount(
+      {required BuildContext context, required String email, required String password}) async {
     try {
       UserCredential result = await auth.createUserWithEmailAndPassword(email: email, password: password);
       return result.user;
@@ -19,7 +30,7 @@ class MyFirebaseAuth {
     }
   }
 
-  Future<User?> signIn({required BuildContext context, required String email, required String password}) async {
+  static Future<User?> signIn({required BuildContext context, required String email, required String password}) async {
     try {
       UserCredential result = await auth.signInWithEmailAndPassword(email: email, password: password);
 

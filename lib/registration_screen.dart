@@ -79,8 +79,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ),
                     );
                   } else {
-                    var x = await MyFirebaseAuth()
-                        .createAccount(context: context, email: emailField.text, password: passwordField.text);
+                    var x = await MyFirebaseAuth.createAccount(
+                        context: context, email: emailField.text, password: passwordField.text);
 
                     if (x != null) {
                       ScaffoldMessenger.of(context)
