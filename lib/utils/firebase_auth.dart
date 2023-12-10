@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 class MyFirebaseAuth {
   FirebaseAuth auth = FirebaseAuth.instance;
 
-  Future<UserCredential>? createAccount(
-      {required BuildContext context, required String email, required String password}) {
+  Future<User?> createAccount({required BuildContext context, required String email, required String password}) async {
     try {
-      return auth.createUserWithEmailAndPassword(email: email, password: password);
+      UserCredential result = await auth.createUserWithEmailAndPassword(email: email, password: password);
+      return result.user;
     } catch (e) {
       final error = e as FirebaseAuthException;
       ScaffoldMessenger.of(context).showSnackBar(
