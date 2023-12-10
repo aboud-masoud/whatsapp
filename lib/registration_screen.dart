@@ -1,6 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:whatsapp/main_view.dart';
+import 'package:whatsapp/utils/firebase_auth.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
@@ -13,7 +13,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController emailField = TextEditingController();
   TextEditingController passwordField = TextEditingController();
   TextEditingController confirmPasswordField = TextEditingController();
-  FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -80,34 +79,25 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ),
                     );
                   } else {
-                    UserCredential? register;
-                    try {
-                      register = await auth
-                          .createUserWithEmailAndPassword(email: emailField.text, password: passwordField.text)
+                    var x = MyFirebaseAuth()
+                        .createAccount(context: context, email: emailField.text, password: passwordField.text);
+
+                    if (x != null) {
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(
+                            const SnackBar(
+                              content: Text("Successfully Signed Up"),
+                            ),
+                          )
+                          .closed
                           .whenComplete(
-                            () => ScaffoldMessenger.of(context)
-                                .showSnackBar(
-                                  const SnackBar(
-                                    content: Text("Successfully Signed Up"),
-                                  ),
-                                )
-                                .closed
-                                .whenComplete(
-                                  () => Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const MainView(),
-                                    ),
-                                  ),
-                                ),
+                            () => Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const MainView(),
+                              ),
+                            ),
                           );
-                    } catch (e) {
-                      final error = e as FirebaseAuthException;
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(error.message!),
-                        ),
-                      );
                     }
                   }
                 },
