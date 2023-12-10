@@ -47,8 +47,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () async {
                       final x = await MyFirebaseAuth()
                           .signIn(context: context, email: emailField.text, password: passwordField.text);
-                      print("x");
-                      print(x);
 
                       if (x != null) {
                         Navigator.pushReplacement(
