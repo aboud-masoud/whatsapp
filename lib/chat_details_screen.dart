@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:whatsapp/model/chat.dart';
 import 'package:whatsapp/utils/firebase_firestore.dart';
 import 'package:whatsapp/widgets/send_message_view.dart';
 
@@ -14,6 +13,9 @@ class ChatDetailsScreen extends StatefulWidget {
 }
 
 class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
+  String documentId = "";
+  List<dynamic> chat = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,10 +69,9 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
                 stream: MyFirebaseFirestore().groupsCollection.snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                   if (streamSnapshot.hasData) {
-                    List<dynamic> chat = [];
-
                     for (var item in streamSnapshot.data!.docs) {
                       if (item["name"] == widget.name) {
+                        documentId = item.id;
                         chat = item["chat"];
                       }
                     }
@@ -122,7 +123,12 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
       ),
       bottomNavigationBar: SendMessageView(
         onTapSend: (value) {
-          // chatList.add(Chat(message: value, myMessage: true));
+          chat.add({"name": "me", "text": value});
+          MyFirebaseFirestore()
+              .groupsCollection
+              .doc(documentId)
+              .update({"name": widget.name, "image": widget.image, "chat": chat});
+
           setState(() {});
         },
       ),
