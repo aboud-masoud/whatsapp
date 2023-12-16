@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:whatsapp/model/chat.dart';
+import 'package:whatsapp/utils/firebase_firestore.dart';
 import 'package:whatsapp/widgets/send_message_view.dart';
 
 class ChatDetailsScreen extends StatefulWidget {
@@ -12,14 +14,6 @@ class ChatDetailsScreen extends StatefulWidget {
 }
 
 class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
-  List<Chat> chatList = [
-    Chat(message: "hi", myMessage: false),
-    Chat(message: "hello", myMessage: true),
-    Chat(message: "abeed ?", myMessage: false),
-    Chat(message: "No barqawi", myMessage: true),
-    Chat(message: "Lorem Ipsum is simply dummy text of the is simply dummy text of the", myMessage: false),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,42 +59,70 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
           Image.asset(
             "assets/background.jpg",
             width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
             fit: BoxFit.fill,
           ),
           Expanded(
-            child: ListView.builder(
-                itemCount: chatList.length,
-                itemBuilder: (ctx, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 8),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 8, top: 8, right: 8),
-                      child: Row(
-                        mainAxisAlignment: chatList[index].myMessage ? MainAxisAlignment.start : MainAxisAlignment.end,
-                        children: [
-                          Flexible(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: chatList[index].myMessage ? Colors.white : Colors.grey,
-                                borderRadius: const BorderRadius.all(Radius.circular(10)),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(chatList[index].message, maxLines: 10),
+            child: StreamBuilder(
+                stream: MyFirebaseFirestore().groupsCollection.snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                  if (streamSnapshot.hasData) {
+                    List<dynamic> chat = [];
+
+                    for (var item in streamSnapshot.data!.docs) {
+                      if (item["name"] == widget.name) {
+                        chat = item["chat"];
+                      }
+                    }
+
+                    return ListView.builder(
+                        itemCount: chat.length,
+                        itemBuilder: (ctx, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 8),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8, top: 8, right: 8),
+                              child: Row(
+                                // mainAxisAlignment:
+                                //     chatList[index].myMessage ? MainAxisAlignment.start : MainAxisAlignment.end,
+                                children: [
+                                  Flexible(
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        // color: chatList[index].myMessage ? Colors.white : Colors.grey,
+                                        color: Colors.white,
+                                        borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              chat[index]["name"],
+                                              style: const TextStyle(fontWeight: FontWeight.bold),
+                                            ),
+                                            Text(chat[index]["text"], maxLines: 10),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
+                          );
+                        });
+                  } else {
+                    return Container();
+                  }
                 }),
           )
         ],
       ),
       bottomNavigationBar: SendMessageView(
         onTapSend: (value) {
-          chatList.add(Chat(message: value, myMessage: true));
+          // chatList.add(Chat(message: value, myMessage: true));
           setState(() {});
         },
       ),

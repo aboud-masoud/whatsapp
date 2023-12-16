@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-// import 'package:whatsapp/chat_details_screen.dart';
+import 'package:whatsapp/chat_details_screen.dart';
 import 'package:whatsapp/model/contact.dart';
 import 'package:whatsapp/utils/firebase_firestore.dart';
 import 'package:whatsapp/widgets/contact_tile.dart';
@@ -53,12 +53,12 @@ class _GroupsViewState extends State<GroupsView> {
                             ),
                           ),
                           onTap: () {
-                            // Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-                            //   return ChatDetailsScreen(
-                            //     // image: contactList[index].image,
-                            //     // name: contactList[index].name,
-                            //   );
-                            // }));
+                            Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+                              return ChatDetailsScreen(
+                                image: documentSnapshot["image"],
+                                name: documentSnapshot["name"],
+                              );
+                            }));
                           },
                         );
                       });

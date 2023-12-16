@@ -33,7 +33,8 @@ class MyFirebaseFirestore {
                   child: const Text('create'),
                   onPressed: () async {
                     if (controllerName.text.isNotEmpty && controllerImage.text.isNotEmpty) {
-                      await groupsCollection.add({"name": controllerName.text, "image": controllerImage.text});
+                      await groupsCollection
+                          .add({"name": controllerName.text, "image": controllerImage.text, "chat": []});
                       Navigator.of(context).pop();
                     }
                   },
