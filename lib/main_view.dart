@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:whatsapp/widgets/chat_view.dart';
+import 'package:whatsapp/utils/firebase_firestore.dart';
+import 'package:whatsapp/widgets/groups_view.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key});
@@ -19,7 +20,7 @@ class _MainViewState extends State<MainView> {
             child: const Text("Edit"),
             onPressed: () {},
           ),
-          title: const Text("Chat"),
+          title: const Text("Groups"),
           actions: [
             IconButton(
               icon: const Icon(Icons.camera_alt_outlined),
@@ -27,29 +28,31 @@ class _MainViewState extends State<MainView> {
             ),
             IconButton(
               icon: const Icon(Icons.add_circle_outline_sharp),
-              onPressed: () {},
+              onPressed: () {
+                MyFirebaseFirestore().createNewGroup(context);
+              },
             ),
           ],
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: [
-            const Center(
+            Center(
                 child: Text(
               'Welcome to Update Tab',
               style: TextStyle(fontSize: 32),
             )),
-            const Center(
+            Center(
                 child: Text(
               'Welcome to calls Tab',
               style: TextStyle(fontSize: 32),
             )),
-            const Center(
+            Center(
                 child: Text(
               'Welcome to Communities Tab',
               style: TextStyle(fontSize: 32),
             )),
-            ChatView(),
-            const Center(
+            GroupsView(),
+            Center(
                 child: Text(
               'Welcome to Settings Tab',
               style: TextStyle(fontSize: 32),
@@ -90,7 +93,7 @@ class _MainViewState extends State<MainView> {
                   iconMargin: EdgeInsets.only(bottom: 10.0),
                 ),
                 Tab(
-                  text: 'Chats',
+                  text: 'Groups',
                   icon: Icon(
                     Icons.chat,
                     color: Colors.white,

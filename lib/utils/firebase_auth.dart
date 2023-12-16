@@ -4,16 +4,6 @@ import 'package:flutter/material.dart';
 class MyFirebaseAuth {
   static FirebaseAuth auth = FirebaseAuth.instance;
 
-  static int x = 5;
-
-  int returnValue() {
-    return x;
-  }
-
-  incrementX() {
-    x = x + 1;
-  }
-
   static Future<User?> createAccount(
       {required BuildContext context, required String email, required String password}) async {
     try {

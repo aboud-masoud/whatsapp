@@ -26,21 +26,10 @@ class ContactTile extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              contact.name,
-                              style: const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            Expanded(child: Container()),
-                            Text(
-                              contact.date,
-                              style: const TextStyle(color: Colors.blue),
-                            ),
-                          ],
+                        Text(
+                          contact.name,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        Text(contact.desc),
                       ],
                     ),
                   ),

@@ -45,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 50,
                 child: ElevatedButton(
                     onPressed: () async {
-                      final x = await MyFirebaseAuth()
+                      final x = await MyFirebaseAuth
                           .signIn(context: context, email: emailField.text, password: passwordField.text);
 
                       if (x != null) {
