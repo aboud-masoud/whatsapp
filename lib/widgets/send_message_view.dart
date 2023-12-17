@@ -1,4 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:whatsapp/utils/bottom_sheet.dart';
+import 'package:whatsapp/utils/firebase_storage.dart';
+import 'package:path/path.dart';
 
 class SendMessageView extends StatefulWidget {
   final Function(String) onTapSend;
@@ -11,6 +17,11 @@ class SendMessageView extends StatefulWidget {
 class _SendMessageViewState extends State<SendMessageView> {
   TextEditingController controller = TextEditingController();
 
+  Future<File> pickImageMeth(ImageSource source) async {
+    final image = await ImagePicker().pickImage(source: source);
+    return File(image?.path ?? "");
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -20,10 +31,29 @@ class _SendMessageViewState extends State<SendMessageView> {
         child: Row(
           children: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                BottomSheetUtil().addImageBottomSheet(context, galleryCallBack: () async {
+                  final image = await pickImageMeth(ImageSource.gallery);
+                  String fileName = basename(image.path);
+
+                  await MyFirebaseStorage().uplaodFile(fileName: fileName, file: image);
+
+                  final url = await MyFirebaseStorage().getDownloadURL(fileName);
+                  widget.onTapSend(url);
+                }, cameraCallBack: () async {
+                  final image = await pickImageMeth(ImageSource.camera);
+                  String fileName = basename(image.path);
+
+                  await MyFirebaseStorage().uplaodFile(fileName: fileName, file: image);
+
+                  final url = await MyFirebaseStorage().getDownloadURL(fileName);
+                  widget.onTapSend(url);
+                });
+              },
               icon: const Icon(
                 Icons.add,
                 color: Colors.blue,
+                size: 40,
               ),
             ),
             Expanded(
@@ -49,20 +79,7 @@ class _SendMessageViewState extends State<SendMessageView> {
                 ),
               ),
             ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.mic,
-                color: Colors.blue,
-              ),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.camera_alt_outlined,
-                color: Colors.blue,
-              ),
-            )
+            const SizedBox(width: 20),
           ],
         ),
       ),
