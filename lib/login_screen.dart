@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:whatsapp/chat_details_screen.dart';
 import 'package:whatsapp/main_view.dart';
 import 'package:whatsapp/registration_screen.dart';
 import 'package:whatsapp/utils/firebase_auth.dart';
@@ -45,10 +46,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 50,
                 child: ElevatedButton(
                     onPressed: () async {
-                      final x = await MyFirebaseAuth
-                          .signIn(context: context, email: emailField.text, password: passwordField.text);
+                      final x = await MyFirebaseAuth.signIn(
+                          context: context, email: emailField.text, password: passwordField.text);
 
                       if (x != null) {
+                        userEmail = emailField.text;
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(

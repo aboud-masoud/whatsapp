@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whatsapp/chat_details_screen.dart';
 import 'package:whatsapp/main_view.dart';
 import 'package:whatsapp/utils/firebase_auth.dart';
 
@@ -83,6 +84,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         context: context, email: emailField.text, password: passwordField.text);
 
                     if (x != null) {
+                      userEmail = emailField.text;
+
                       ScaffoldMessenger.of(context)
                           .showSnackBar(
                             const SnackBar(

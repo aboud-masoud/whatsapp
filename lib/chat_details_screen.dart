@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:whatsapp/utils/firebase_firestore.dart';
 import 'package:whatsapp/widgets/send_message_view.dart';
 
+String userEmail = "";
+
 class ChatDetailsScreen extends StatefulWidget {
   final String image;
   final String name;
@@ -76,44 +78,49 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
                       }
                     }
 
-                    return ListView.builder(
-                        itemCount: chat.length,
-                        itemBuilder: (ctx, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 8),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 8, top: 8, right: 8),
-                              child: Row(
-                                // mainAxisAlignment:
-                                //     chatList[index].myMessage ? MainAxisAlignment.start : MainAxisAlignment.end,
-                                children: [
-                                  Flexible(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        // color: chatList[index].myMessage ? Colors.white : Colors.grey,
-                                        color: Colors.white,
-                                        borderRadius: const BorderRadius.all(Radius.circular(10)),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              chat[index]["name"],
-                                              style: const TextStyle(fontWeight: FontWeight.bold),
-                                            ),
-                                            Text(chat[index]["text"], maxLines: 10),
-                                          ],
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ListView.builder(
+                          itemCount: chat.length,
+                          itemBuilder: (ctx, index) {
+                            final userName = chat[index]["name"].toString().split("@").first;
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 8),
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 8, top: 8, right: 8),
+                                child: Row(
+                                  mainAxisAlignment: chat[index]["name"].toString() == userEmail
+                                      ? MainAxisAlignment.start
+                                      : MainAxisAlignment.end,
+                                  children: [
+                                    Flexible(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          // color: chatList[index].myMessage ? Colors.white : Colors.grey,
+                                          color: Colors.white,
+                                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                userName,
+                                                style: const TextStyle(fontWeight: FontWeight.bold),
+                                              ),
+                                              Text(chat[index]["text"], maxLines: 10),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          );
-                        });
+                            );
+                          }),
+                    );
                   } else {
                     return Container();
                   }
@@ -123,7 +130,7 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
       ),
       bottomNavigationBar: SendMessageView(
         onTapSend: (value) {
-          chat.add({"name": "me", "text": value});
+          chat.add({"name": userEmail, "text": value});
           MyFirebaseFirestore()
               .groupsCollection
               .doc(documentId)
