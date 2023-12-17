@@ -20,15 +20,4 @@ class MyFirebaseStorage {
       return "";
     }
   }
-
-  // Reference reference = storage.ref().child("images/");
-
-  // UploadTask uploadTask = reference.putFile(file);
-
-  // final snapshot = await uploadTask.whenComplete(() async {
-  //   final snapshot = uploadTask.snapshot;
-  //   final url = await snapshot.ref.getDownloadURL();
-  //   print(url);
-  // });
-  // }
 }
