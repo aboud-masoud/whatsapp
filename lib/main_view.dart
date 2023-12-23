@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:whatsapp/utils/firebase_firestore.dart';
+import 'package:whatsapp/utils/firebase_messages.dart';
 import 'package:whatsapp/widgets/groups_view.dart';
 
 class MainView extends StatefulWidget {
@@ -10,6 +11,16 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> {
+  @override
+  void didChangeDependencies() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(const Duration(seconds: 2), () {
+        FirebaseCloudMessagingUtil.initConfigure(context);
+      });
+    });
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
